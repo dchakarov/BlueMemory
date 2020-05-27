@@ -15,6 +15,8 @@
 		333FE71C2474466F00DCB85E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 333FE71A2474466F00DCB85E /* LaunchScreen.storyboard */; };
 		333FE724247496E400DCB85E /* MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333FE723247496E400DCB85E /* MemoryGame.swift */; };
 		333FE726247498E600DCB85E /* EmojiMemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333FE725247498E600DCB85E /* EmojiMemoryGame.swift */; };
+		3399CE1A247DD27800A328FD /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399CE19247DD27800A328FD /* Grid.swift */; };
+		3399CE1C247DD84F00A328FD /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3399CE1B247DD84F00A328FD /* GridLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		333FE71D2474466F00DCB85E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		333FE723247496E400DCB85E /* MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGame.swift; sourceTree = "<group>"; };
 		333FE725247498E600DCB85E /* EmojiMemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMemoryGame.swift; sourceTree = "<group>"; };
+		3399CE19247DD27800A328FD /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		3399CE1B247DD84F00A328FD /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +69,8 @@
 				333FE70F2474466900DCB85E /* AppDelegate.swift */,
 				333FE7112474466900DCB85E /* SceneDelegate.swift */,
 				333FE7132474466900DCB85E /* EmojiMemoryGameView.swift */,
+				3399CE19247DD27800A328FD /* Grid.swift */,
+				3399CE1B247DD84F00A328FD /* GridLayout.swift */,
 				333FE7152474466F00DCB85E /* Assets.xcassets */,
 				333FE71A2474466F00DCB85E /* LaunchScreen.storyboard */,
 				333FE71D2474466F00DCB85E /* Info.plist */,
@@ -157,6 +163,8 @@
 				333FE724247496E400DCB85E /* MemoryGame.swift in Sources */,
 				333FE7142474466900DCB85E /* EmojiMemoryGameView.swift in Sources */,
 				333FE726247498E600DCB85E /* EmojiMemoryGame.swift in Sources */,
+				3399CE1C247DD84F00A328FD /* GridLayout.swift in Sources */,
+				3399CE1A247DD27800A328FD /* Grid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

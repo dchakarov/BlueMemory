@@ -12,18 +12,19 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     
     var body: some View {
-        HStack {
-            ForEach(viewModel.cards) { card in
-                CardView(card: card)
-                    .aspectRatio(2/3, contentMode: .fit)
-                    .onTapGesture {
+        Grid(viewModel.cards) { card in
+            CardView(card: card)
+                .onTapGesture {
                     self.viewModel.choose(card: card)
-                }
             }
+            .padding(self.cardPadding)
         }
+            
         .padding()
         .foregroundColor(.orange)
     }
+    
+    let cardPadding: CGFloat = 5
 }
 
 struct CardView: View {
@@ -42,7 +43,9 @@ struct CardView: View {
                 RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth)
                 Text(card.content)
             } else {
-                RoundedRectangle(cornerRadius: cornerRadius).fill()
+                if !card.isMatched {
+                    RoundedRectangle(cornerRadius: cornerRadius).fill()
+                }
             }
         }
         .font(.system(size: min(size.width, size.height) * fontScaleFactor))
