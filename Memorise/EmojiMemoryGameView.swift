@@ -12,16 +12,19 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     
     var body: some View {
-        Grid(viewModel.cards) { card in
-            CardView(card: card)
-                .onTapGesture {
-                    self.viewModel.choose(card: card)
+        VStack {
+            Text("Score: \(viewModel.score)")
+            Grid(viewModel.cards) { card in
+                CardView(card: card)
+                    .onTapGesture {
+                        self.viewModel.choose(card: card)
+                }
+                .padding(self.cardPadding)
             }
-            .padding(self.cardPadding)
+                
+            .padding()
+            .foregroundColor(.orange)
         }
-            
-        .padding()
-        .foregroundColor(.orange)
     }
     
     let cardPadding: CGFloat = 5
