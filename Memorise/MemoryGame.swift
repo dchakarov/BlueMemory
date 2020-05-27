@@ -61,6 +61,10 @@ struct MemoryGame<CardContent: Equatable> {
         }
     }
     
+    func isOver() -> Bool {
+        cards.filter { $0.isMatched }.count == cards.count
+    }
+    
     struct Card: Identifiable {
         var isFaceUp = false
         var isMatched = false

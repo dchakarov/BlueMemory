@@ -10,14 +10,23 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     @ObservedObject var emojiMemoryGame: EmojiMemoryGame
-    
+    @State private var difficulty = 4
+
     var body: some View {
         VStack {
             HStack {
                 Text("Score: \(emojiMemoryGame.score)")
+                Text("High: \(emojiMemoryGame.highScore)")
                 Spacer()
+                HStack {
+                    Picker(selection: $difficulty, label: Text("")) {
+                        Text("Easy").tag(self.easyDifficulty)
+                        Text("Normal").tag(self.normalDifficulty)
+                        Text("Hard").tag(self.hardDifficulty)
+                    }.pickerStyle(SegmentedPickerStyle())
+                }
                 Button("New Game") {
-                    self.emojiMemoryGame.restartGame()
+                    self.emojiMemoryGame.newGame(difficulty: self.difficulty, theme: Theme.random)
                 }
             }
             .padding([.horizontal])
@@ -29,11 +38,14 @@ struct EmojiMemoryGameView: View {
                 .padding(self.cardPadding)
             }
             .padding()
-            .foregroundColor(.orange)
+            .foregroundColor(emojiMemoryGame.theme.backColour)
         }
     }
     
     let cardPadding: CGFloat = 5
+    let easyDifficulty = 3
+    let normalDifficulty = 6
+    let hardDifficulty = 9
 }
 
 struct CardView: View {
@@ -68,6 +80,6 @@ struct CardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        EmojiMemoryGameView(emojiMemoryGame: EmojiMemoryGame())
+        EmojiMemoryGameView(emojiMemoryGame: EmojiMemoryGame(theme: Theme.random))
     }
 }
