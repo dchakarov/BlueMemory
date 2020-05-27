@@ -9,22 +9,22 @@
 import SwiftUI
 
 struct EmojiMemoryGameView: View {
-    @ObservedObject var viewModel: EmojiMemoryGame
+    @ObservedObject var emojiMemoryGame: EmojiMemoryGame
     
     var body: some View {
         VStack {
             HStack {
-                Text("Score: \(viewModel.score)")
+                Text("Score: \(emojiMemoryGame.score)")
                 Spacer()
                 Button("New Game") {
-                    self.viewModel.restartGame()
+                    self.emojiMemoryGame.restartGame()
                 }
             }
             .padding([.horizontal])
-            Grid(viewModel.cards) { card in
+            Grid(emojiMemoryGame.cards) { card in
                 CardView(card: card)
                     .onTapGesture {
-                        self.viewModel.choose(card: card)
+                        self.emojiMemoryGame.choose(card: card)
                 }
                 .padding(self.cardPadding)
             }
@@ -68,6 +68,6 @@ struct CardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        EmojiMemoryGameView(viewModel: EmojiMemoryGame())
+        EmojiMemoryGameView(emojiMemoryGame: EmojiMemoryGame())
     }
 }
