@@ -61,7 +61,7 @@ struct MemoryGame<CardContent: Equatable> {
         }
     }
     
-    func isOver() -> Bool {
+    var isOver: Bool {
         cards.filter { $0.isMatched }.count == cards.count
     }
     

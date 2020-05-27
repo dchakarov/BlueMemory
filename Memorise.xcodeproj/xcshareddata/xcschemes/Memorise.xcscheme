@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "333FE70B2474466900DCB85E"
-               BuildableName = "Memorise.app"
+               BuildableName = "Blue Memory.app"
                BlueprintName = "Memorise"
                ReferencedContainer = "container:Memorise.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "333FE70B2474466900DCB85E"
-            BuildableName = "Memorise.app"
+            BuildableName = "Blue Memory.app"
             BlueprintName = "Memorise"
             ReferencedContainer = "container:Memorise.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "333FE70B2474466900DCB85E"
-            BuildableName = "Memorise.app"
+            BuildableName = "Blue Memory.app"
             BlueprintName = "Memorise"
             ReferencedContainer = "container:Memorise.xcodeproj">
          </BuildableReference>

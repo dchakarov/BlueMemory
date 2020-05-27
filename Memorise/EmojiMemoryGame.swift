@@ -17,7 +17,7 @@ class EmojiMemoryGame: ObservableObject {
         return UserDefaults.standard.integer(forKey: key)
     }
     
-    init(theme: Theme, difficulty: Int = 9) {
+    init(theme: Theme, difficulty: Int = 3) {
         self.theme = theme
         self.difficulty = difficulty
         game = Self.createMemoryGame(difficulty: difficulty, theme: theme)
@@ -38,9 +38,13 @@ class EmojiMemoryGame: ObservableObject {
         game.currentScore
     }
     
+    var isOver: Bool {
+        game.isOver
+    }
+    
     func choose(card: MemoryGame<String>.Card) {
         game.choose(card: card)
-        if game.isOver() {
+        if game.isOver {
             if score > highScore {
                 let key = "\(theme)_\(difficulty)"
                 UserDefaults.standard.set(score, forKey: key)
@@ -53,12 +57,16 @@ class EmojiMemoryGame: ObservableObject {
         self.theme = theme
         self.difficulty = difficulty
     }
+    
+    func restartGame() {
+        newGame(difficulty: difficulty, theme: theme)
+    }
 }
 
-enum Theme: CaseIterable {
-    case sports
-    case music
-    case animals
+enum Theme: String, CaseIterable {
+    case sports = "Sports"
+    case music = "Music"
+    case animals = "Animals"
     
     static var random: Self {
         Self.allCases.randomElement() ?? .sports

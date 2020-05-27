@@ -10,35 +10,68 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     @ObservedObject var emojiMemoryGame: EmojiMemoryGame
-    @State private var difficulty = 4
+    @State private var newDifficulty = 3
+    @State private var newTheme = 0
+    var themes = Theme.allCases
 
     var body: some View {
         VStack {
             HStack {
-                Text("Score: \(emojiMemoryGame.score)")
+                Text("Current: \(emojiMemoryGame.score)")
                 Text("High: \(emojiMemoryGame.highScore)")
                 Spacer()
-                HStack {
-                    Picker(selection: $difficulty, label: Text("")) {
+                Button("Restart Game") {
+                    self.emojiMemoryGame.restartGame()
+                }
+            }
+            .padding()
+            
+            Spacer()
+            
+            if emojiMemoryGame.isOver {
+                VStack {
+                    Text("GAME OVER").font(.largeTitle)
+                    Text("Your Score: \(emojiMemoryGame.score)").font(.title)
+                    Divider()
+                    
+                    Text("Fancy another game?").font(.largeTitle)
+                    
+                    Picker(selection: $newDifficulty, label: Text("Choose difficulty")) {
                         Text("Easy").tag(self.easyDifficulty)
                         Text("Normal").tag(self.normalDifficulty)
                         Text("Hard").tag(self.hardDifficulty)
-                    }.pickerStyle(SegmentedPickerStyle())
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding()
+                    
+                    Picker(selection: $newTheme, label: Text("Choose theme")) {
+                        ForEach(0..<themes.count) { index in
+                            Text(self.themes[index].rawValue).tag(index)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding()
+                    
+                    Button("Start New Game") {
+                        self.emojiMemoryGame.newGame(difficulty: self.newDifficulty, theme: self.themes[self.newTheme])
+                    }
+                    .font(.title)
+                    .padding()
                 }
-                Button("New Game") {
-                    self.emojiMemoryGame.newGame(difficulty: self.difficulty, theme: Theme.random)
+            } else {
+                Grid(emojiMemoryGame.cards) { card in
+                    CardView(card: card)
+                        .onTapGesture {
+                            self.emojiMemoryGame.choose(card: card)
+                    }
+                    .padding(self.cardPadding)
                 }
+                .padding()
+                .foregroundColor(emojiMemoryGame.theme.backColour)
             }
-            .padding([.horizontal])
-            Grid(emojiMemoryGame.cards) { card in
-                CardView(card: card)
-                    .onTapGesture {
-                        self.emojiMemoryGame.choose(card: card)
-                }
-                .padding(self.cardPadding)
-            }
-            .padding()
-            .foregroundColor(emojiMemoryGame.theme.backColour)
+            
+            Spacer()
+
         }
     }
     
@@ -58,7 +91,8 @@ struct CardView: View {
     }
     
     func body(for size: CGSize) -> some View {
-        ZStack {
+        let fontSize = min(min(size.width, size.height) * fontScaleFactor, maxFontSize)
+        return ZStack {
             if card.isFaceUp {
                 RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
                 RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth)
@@ -69,13 +103,13 @@ struct CardView: View {
                 }
             }
         }
-        .font(.system(size: min(size.width, size.height) * fontScaleFactor))
+        .font(.system(size: fontSize))
     }
     
     let cornerRadius: CGFloat = 10.0
     let edgeLineWidth: CGFloat = 3
     let fontScaleFactor: CGFloat = 0.75
-    
+    let maxFontSize: CGFloat = 100
 }
 
 struct ContentView_Previews: PreviewProvider {
