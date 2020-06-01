@@ -75,10 +75,10 @@ struct EmojiMemoryGameView: View {
         }
     }
     
-    let cardPadding: CGFloat = 5
-    let easyDifficulty = 3
-    let normalDifficulty = 6
-    let hardDifficulty = 9
+    private let cardPadding: CGFloat = 5
+    private let easyDifficulty = 3
+    private let normalDifficulty = 6
+    private let hardDifficulty = 9
 }
 
 struct CardView: View {
@@ -90,7 +90,7 @@ struct CardView: View {
         }
     }
     
-    func body(for size: CGSize) -> some View {
+    private func body(for size: CGSize) -> some View {
         let fontSize = min(min(size.width, size.height) * fontScaleFactor, maxFontSize)
         return ZStack {
             if card.isFaceUp {

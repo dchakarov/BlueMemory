@@ -9,9 +9,9 @@
 import Foundation
 
 struct MemoryGame<CardContent: Equatable> {
-    var currentScore = 0
-    var cards: Array<Card>
-    var indexOfFaceUpCard: Int? {
+    private(set) var currentScore = 0
+    private(set) var cards: Array<Card>
+    private var indexOfFaceUpCard: Int? {
         get {
             let faceUpIndices = cards.indices.filter { cards[$0].isFaceUp }
             return faceUpIndices.count == 1 ? faceUpIndices.first : nil
