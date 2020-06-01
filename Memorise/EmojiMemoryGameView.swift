@@ -38,31 +38,25 @@ struct EmojiMemoryGameView: View {
 
 struct CardView: View {
     var card: MemoryGame<String>.Card
-
+    
     var body: some View {
         GeometryReader { geometry in
             self.body(for: geometry.size)
         }
     }
     
+    @ViewBuilder
     func body(for size: CGSize) -> some View {
-        ZStack {
-            if card.isFaceUp {
-                RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
-                RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth)
+        if card.isFaceUp || card.isMatched {
+            ZStack {
                 Pie(startAngle: Angle.degrees(-90), endAngle: Angle.degrees(20), clockwise: true).padding(5).opacity(0.4)
                 Text(card.content)
-            } else {
-                if !card.isMatched {
-                    RoundedRectangle(cornerRadius: cornerRadius).fill()
-                }
             }
+            .asCard(isFaceUp: card.isFaceUp)
+            .font(.system(size: min(size.width, size.height) * fontScaleFactor))
         }
-        .font(.system(size: min(size.width, size.height) * fontScaleFactor))
     }
     
-    let cornerRadius: CGFloat = 10.0
-    let edgeLineWidth: CGFloat = 3
     let fontScaleFactor: CGFloat = 0.7
     
 }
