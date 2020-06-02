@@ -81,37 +81,6 @@ struct EmojiMemoryGameView: View {
     private let hardDifficulty = 9
 }
 
-struct CardView: View {
-    var card: MemoryGame<String>.Card
-
-    var body: some View {
-        GeometryReader { geometry in
-            self.body(for: geometry.size)
-        }
-    }
-    
-    private func body(for size: CGSize) -> some View {
-        let fontSize = min(min(size.width, size.height) * fontScaleFactor, maxFontSize)
-        return ZStack {
-            if card.isFaceUp {
-                RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
-                RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth)
-                Text(card.content)
-            } else {
-                if !card.isMatched {
-                    RoundedRectangle(cornerRadius: cornerRadius).fill()
-                }
-            }
-        }
-        .font(.system(size: fontSize))
-    }
-    
-    let cornerRadius: CGFloat = 10.0
-    let edgeLineWidth: CGFloat = 3
-    let fontScaleFactor: CGFloat = 0.75
-    let maxFontSize: CGFloat = 100
-}
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         EmojiMemoryGameView(emojiMemoryGame: EmojiMemoryGame(theme: Theme.random))
