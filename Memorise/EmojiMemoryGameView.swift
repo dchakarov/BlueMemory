@@ -13,7 +13,7 @@ struct EmojiMemoryGameView: View {
     @State private var newDifficulty = 3
     @State private var newTheme = 0
     var themes = Theme.allCases
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -71,7 +71,7 @@ struct EmojiMemoryGameView: View {
             }
             
             Spacer()
-
+            
         }
     }
     
@@ -83,37 +83,34 @@ struct EmojiMemoryGameView: View {
 
 struct CardView: View {
     var card: MemoryGame<String>.Card
-
+    
     var body: some View {
         GeometryReader { geometry in
             self.body(for: geometry.size)
         }
     }
     
+    @ViewBuilder
     private func body(for size: CGSize) -> some View {
         let fontSize = min(min(size.width, size.height) * fontScaleFactor, maxFontSize)
-        return ZStack {
-            if card.isFaceUp {
-                RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
-                RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth)
+        if card.isFaceUp || card.isMatched {
+            ZStack {
+                Pie(startAngle: Angle.degrees(-90), endAngle: Angle.degrees(20), clockwise: true).padding(5).opacity(0.4)
                 Text(card.content)
-            } else {
-                if !card.isMatched {
-                    RoundedRectangle(cornerRadius: cornerRadius).fill()
-                }
             }
+            .asCard(isFaceUp: card.isFaceUp)
+            .font(.system(size: fontSize))
         }
-        .font(.system(size: fontSize))
     }
     
-    let cornerRadius: CGFloat = 10.0
-    let edgeLineWidth: CGFloat = 3
-    let fontScaleFactor: CGFloat = 0.75
+    let fontScaleFactor: CGFloat = 0.7
     let maxFontSize: CGFloat = 100
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        EmojiMemoryGameView(emojiMemoryGame: EmojiMemoryGame(theme: Theme.random))
+        let game = EmojiMemoryGame(theme: Theme.random)
+        game.choose(card: game.cards.first!)
+        return EmojiMemoryGameView(emojiMemoryGame: game)
     }
 }
