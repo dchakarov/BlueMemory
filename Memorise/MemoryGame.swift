@@ -43,7 +43,7 @@ struct MemoryGame<CardContent: Equatable> {
                 if cards[chosenIndex].content == cards[potentialMatchIndex].content {
                     cards[chosenIndex].isMatched = true
                     cards[potentialMatchIndex].isMatched = true
-                    currentScore += 2
+                    currentScore += (cards[chosenIndex].hasEarnedBonus && cards[potentialMatchIndex].hasEarnedBonus) ? 4 : 2
                 } else {
                     if cards[chosenIndex].isSeen {
                         currentScore -= 1
@@ -83,13 +83,6 @@ struct MemoryGame<CardContent: Equatable> {
         var isSeen = false
         var content: CardContent
         var id: Int
-
-
-
-
-
-
-
         var bonusTimeLimit: TimeInterval = 6
         private var faceUpTime: TimeInterval {
             if let lastFaceUpDate = self.lastFaceUpDate {
@@ -125,15 +118,4 @@ struct MemoryGame<CardContent: Equatable> {
         }
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

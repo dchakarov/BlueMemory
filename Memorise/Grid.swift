@@ -37,4 +37,3 @@ struct Grid<Item: Identifiable, ItemView: View>: View {
     }
     
 }
-
