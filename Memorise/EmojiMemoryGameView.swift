@@ -20,8 +20,12 @@ struct EmojiMemoryGameView: View {
                 Text("Current: \(emojiMemoryGame.score)")
                 Text("High: \(emojiMemoryGame.highScore)")
                 Spacer()
-                Button("Restart Game") {
-                    self.emojiMemoryGame.restartGame()
+                if !emojiMemoryGame.isOver {
+                    Button("Restart Game") {
+                        withAnimation(.easeInOut) {
+                            self.emojiMemoryGame.restartGame()
+                        }
+                    }
                 }
             }
             .padding()
@@ -60,9 +64,10 @@ struct EmojiMemoryGameView: View {
                 }
             } else {
                 Grid(emojiMemoryGame.cards) { card in
-                    CardView(card: card)
-                        .onTapGesture {
+                    CardView(card: card).onTapGesture {
+                        withAnimation(.linear(duration: 0.75)) {
                             self.emojiMemoryGame.choose(card: card)
+                        }
                     }
                     .padding(self.cardPadding)
                 }
